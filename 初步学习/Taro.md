@@ -1,0 +1,15 @@
+## webpack编译配置(config)
+- 编译配置存放于项目根目录下的config目录种
+	- `index.js`是**通用配置**
+	- `dev.js`是项目**开发**时的配置
+	- `prod.js`是项目**生产**时的配置
+- 常用配置
+	- `projectName`：项目名称
+	- `data`：项目创建时间
+	- `designWidth`：设计稿尺寸
+	- `sourceRoot`：项目源码目录
+	- `outputRoot`：项目产出目录
+	- `defineConstants`：定义的全局变量(DefinePlugin)
+	- `alias`：配置路径别名
+	- `h5.webpackChain`：webpack配置
+	- `h5.devServer`：开发者服务配置
