@@ -1,20 +1,29 @@
 # 张琳艳
-- [ ] `javascript` 5.25
+- [ ] `javascript` 6.5
 # 周心语
-- [ ] `javascript` 5.8~5.10
+- [ ] `javascript` 5.16
 # 周锦华
+- [ ] `javascript` 5.20
 # 蒋京玲
-- [ ] HTML 4.19
+- [x] `HTML` 4.19
+- [ ] `CSS` 5.15
 # 郑蓉
-# 杨佳瑶
-- [ ] HTML 4.19
+- [ ] `Javascript` 5.20
+# 杨家瑶
+- [x] `HTML` 4.19
+- [ ] `CSS` 5.10
 # 罗雁心
-- [ ] HTML 4.25
-# 毕佳玉
-- [ ] HTML 4.25
+- [x] `HTML` 4.25
+- [ ] `CSS` 5.15
+# 毕佳钰
+- [x] `HTML` 4.25
+- [ ] `CSS` 5.15
 # 匡玉婷
-- [ ] HTML 4.25
+- [x] `HTML` 4.25
+- [ ] `CSS` 5.15
 # 张璇
-- [ ] HTML 4.19
+- [x] `HTML` 4.19
+- [ ] `CSS` 5.10
 # 陈居浩
-- [ ] HTML 4.19
+- [x] `HTML` 4.19
+- [ ] `CSS` 5.15
