@@ -163,3 +163,106 @@ obj2.foo() // Object [obj2]
 ## 箭头函数
 - 箭头函数不会绑定`this`，`arguments`属性
 - 剪头函数不能作为构造函数来使用
+## 面试题🌰
+- 🌰1
+```javascript
+var name = 'window'
+
+var person = {
+	name: 'person',
+	sayName: function () {
+		console.log(this.name)
+	},
+}
+
+function sayName() {
+	var sss = person.sayName
+	sss() // 直接调用-> window
+	person.sayName() // 隐式绑定->person
+	;(person.sayName)() // 与上述一样，隐式绑定->person
+	;(b = person.sayName)() // 间接引用，返回b，调用->window
+}
+
+sayName()
+```
+- 🌰2
+```javascript
+var name = 'window'
+var person1 = {
+	name: 'person1',
+	foo1: function () {
+		console.log(this.name)
+	},
+	foo2: () => console.log(this.name),
+	foo3: function () {
+		return function () {
+			console.log(this.name)
+		}
+	},
+	foo4: function () {
+		return () => console.log(this.name)
+	},
+}
+
+var person2 = { name: 'person2' }
+
+person1.foo1() // 隐式绑定->person1
+person1.foo1.call(person2) // 显示绑定->person2
+
+person1.foo2() // 上层作用域->window
+person1.foo2.call(person2) // 上层作用域->window
+
+person1.foo3()() // 隐式绑定->window
+person1.foo3.call(person2)() // window  前面拿到的还是那个函数 默认绑定(后面那个执行的)
+person1.foo3().call(person2) // 显示绑定->person2
+
+person1.foo4()() // person1
+person1.foo4.call(person2)() // person2
+person1.foo4().call(person2) // person1
+
+```
+- 🌰3️
+```javascript
+var name = 'window'
+function Person(name) {
+	this.name = name
+	this.foo1 = function () {
+		console.log(this.name)
+	}
+	this.foo2 = () => console.log(this.name)
+	this.foo3 = function () {
+		return function () {
+			console.log(this.name)
+		}
+	}
+	this.foo4 = function () {
+		return () => console.log(this.name)
+	}
+}
+
+var person1 = new Person('person1')
+var person2 = new Person('person2')
+
+person1.foo1() // 隐式绑定->person1
+person1.foo1.call(person2) // 显示绑定->person2
+
+person1.foo2() // new 绑定 上层作用域 -> person1
+person1.foo2.call(person2) // 无关 new 绑定上层作用域-> person1
+
+person1.foo3()() // 隐式绑定->window
+person1.foo3.call(person2)() // window  前面拿到的还是那个函数 默认绑定(后面那个执行的)
+person1.foo3().call(person2) // 显示绑定->person2
+
+person1.foo4()() // person1
+person1.foo4.call(person2)() // person2
+person1.foo4().call(person2) // person1
+```
+
+
+# 浏览器解析网页
+![[Pasted image 20240430232749.png]]
+[浏览器的工作方式  |  Articles  |  web.dev](https://web.dev/articles/howbrowserswork?hl=zh-cn)
+
+# 回流（reflow「重排」)/重绘
+
+# defer
