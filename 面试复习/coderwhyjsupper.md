@@ -110,6 +110,8 @@ foo.call(123) // [Number: 123]
 
 - 使用`bind`方法，`bind()`创建一个新的**绑定函数**（`bound function, BF`)
 - 绑定函数是一个**怪异函数对象**(`exotic function object`) $ESMAScript\space 2015$术语
+## 意料之外
+
 ### `new`绑定
 `JavaScript`中的函数可以当做一个类的构造函数来使用，也就是`new`关键字
 使用`new`关键字来调用函数时，会执行如下的操作：
@@ -127,7 +129,6 @@ function Person(name, age) {
 var p1 = new Person('John', 25) // Person { name: 'John', age: 25}
 ```
 
-## 意料之外
 ### `null`和`undefined`
 如果在显示绑定中，传入一个`null`或者`undefined`，那么这个显示绑定会被忽略，使用默认绑定（非严格模式）
 ```javascript
