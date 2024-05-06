@@ -18,7 +18,6 @@ function fn() {
 
 fn()
 
-
 const fn = () => {
   console.log(this)
   // node: {}
@@ -29,8 +28,6 @@ const fn = () => {
 
 }
 fn()
-
-
 
 var obj = {
 	name: 'John',
