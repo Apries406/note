@@ -206,3 +206,6 @@ function useMemoizedFn<T extends noop>(fn: T) {
 在表单处理中，我们绕不开*受控组件*与*非受控组件*。
 那，什么是受控与非受控呢？
 
+表单无非时有两种情况，`readonly`和`writeable`。
+
+也就是当组件自身管理自己的`value`,无法从外界对他造成影响时，这就是受控的。能被用户输入修改自身`value`的，就是f
