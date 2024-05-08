@@ -204,18 +204,3 @@ function useMemoizedFn<T extends noop>(fn: T) {
 ## 受控组件与非受控组件
 
 ### 受控组件
-受控组件，简单来讲，就是受我们控制的组件，组件的状态**全程响应外部数据**
-```jsx
-function TestComponent(props) {
-	const [username, setUsername] = useState('apries')
-
-	return <input name="username" value={username}/>
-}
-```
-
-这时候当我们在输入框输入内容的时候，会发现输入的内容并无法显示出来，也就是`input`元素处于`readonly`状态。
-这是因为`value`被`username`状态所控制住。当用户输入新内容时，`username`状态并不会自动更新，这样的话`input`标签的内容也就不会改变了。
-
-如果想要解除受控，可以为`input`元素添加`onChange`事件，输入时触发事件，在组件内部实现`state`的更新。
-
-因此，受控组件我们一般需要*初始状态*和一个*状态更新事件的函数*
