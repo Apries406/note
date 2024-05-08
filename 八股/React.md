@@ -208,11 +208,12 @@ function useMemoizedFn<T extends noop>(fn: T) {
 ```jsx
 function TestComponent(props) {
 	const {username} = props
-	const [uname, setUname] = useState(username)
 
-	return <input name="username" value={uname}/>
+	return <input name="username" value={username}/>
 }
 ```
 
 这时候当我们在输入框输入内容的时候，会发现输入的内容并无法显示出来，也就是`input`元素处于`readonly`状态。
-这是因为`value`被`uname`状态所控制住。当用户输入新内容时，
+这是因为`value`被`username`状态所控制住。当用户输入新内容时，`username`状态并不会自动更新，这样的话`input`标签的内容也就不会改变了。
+
+如果想要解除受控，可以为`input`元素添加`onChange`时间
