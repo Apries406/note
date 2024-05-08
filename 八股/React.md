@@ -230,3 +230,20 @@ export default App
 此时我们可以通过输入事件来改变`input.value`。
 
 ### 受控组件
+```tsx
+import { ChangeEvent, useState } from 'react'
+
+const App = () => {
+	const [value, setValue] = useState('apries')
+	function onChange(event: ChangeEvent<HTMLInputElement>) {
+		console.log(event.target.value)
+		setValue(event.target.value)
+	}
+	console.log('render ....')
+	return <input value={value} onChange={onChange}></input>
+}
+
+export default App
+```
+
+这里我们可以看到，`input.value`是由自身状态决定的。
