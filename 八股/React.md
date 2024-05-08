@@ -211,3 +211,22 @@ function useMemoizedFn<T extends noop>(fn: T) {
 也就是当组件自身管理自己的`value`,无法从外界对他造成影响时，这就是受控的。能被用户输入修改自身`value`的，就是非受控的。
 
 
+### 非受控
+
+我们利用`input`来展示一下非受控模式
+```tsx
+import { ChangeEvent } from 'react'
+
+const App = () => {
+	function onChange(event: ChangeEvent<HTMLInputElement>) {
+		console.log(event.target.value)
+	}
+	return <input defaultValue={'apries'} onChange={onChange}></input>
+}
+
+export default App
+```
+
+此时我们可以通过输入事件来改变`input.value`。
+
+### 受控组件
