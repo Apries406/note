@@ -208,4 +208,6 @@ function useMemoizedFn<T extends noop>(fn: T) {
 
 表单无非时有两种情况，`readonly`和`writeable`。
 
-也就是当组件自身管理自己的`value`,无法从外界对他造成影响时，这就是受控的。能被用户输入修改自身`value`的，就是f
+也就是当组件自身管理自己的`value`,无法从外界对他造成影响时，这就是受控的。能被用户输入修改自身`value`的，就是非受控的。
+
+
