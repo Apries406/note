@@ -570,3 +570,54 @@ output:
 ]
 */
 ```
+
+
+
+
+# 手写
+
+## Promise.all
+```javascript
+/*
+ * @param {Promise} promise - 待判断的Promise对象
+ * @return {boolean} - 返回一个布尔值，表示promise是否为Promise对象
+ */
+Promise.prototype.myIsPromise = function (promise) {
+	return (
+		promise instanceof Promise ||
+		(typeof promise === 'object' &&
+			promise !== null &&
+			typeof promise.then === 'function')
+	)
+}
+
+/*
+ * @param {Array<Promise>} promises - 包含多个Promise对象的数组
+ * @return {Promise} - 返回一个Promise对象
+ */
+Promise.prototype.myAll = function (promises) {
+	return new Promise((resolve, reject) => {
+		let fulfilledCount = 0
+		const result = []
+		const length = promises.length
+
+		for (let i = 0; i < length; i++) {
+			if (!this.myIsPromise(promises[i])) {
+				// * 不是Promise对象，抛出错误
+				reject(new TypeError('期望传入的数组中全为Promise对象'))
+			}
+			// * 处理每一个promise
+			promises[i]
+				.then((res) => {
+					fulfilledCount++ // 计数器+1
+					result[i] = res // 将结果存入数组
+					if (fulfilledCount === length) resolve(result) // 全部完成，调用resolve
+				})
+				.catch((err) => {
+					reject(err) // 处理错误
+				})
+		}
+	})
+}
+
+```
