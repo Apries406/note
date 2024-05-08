@@ -205,3 +205,14 @@ function useMemoizedFn<T extends noop>(fn: T) {
 
 ### 受控组件
 受控组件，简单来讲，就是受我们控制的组件，组件的状态**全程响应外部数据**
+```jsx
+function TestComponent(props) {
+	const {username} = props
+	const [uname, setUname] = useState(username)
+
+	return <input name="username" value={uname}/>
+}
+```
+
+这时候当我们在输入框输入内容的时候，会发现输入的内容并无法显示出来，也就是`input`元素处于`readonly`状态。
+这是因为`value`被`uname`状态所控制住。当用户输入新内容时，
