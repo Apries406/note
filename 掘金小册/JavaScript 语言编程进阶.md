@@ -221,19 +221,26 @@ Function Environment Record 是 Declarative Environment Record 的子类，并�
 
 ECMAScript 规定，如果函数是箭头函数（`=>`），那么`HasThisBinding()` 返回 false，否则返回 true。从这一点上就能看到，ES6 引入箭头函数这一语法后，我们就具备了锁定 this 的能力，试看下面这个例子：
 
-html
+```html
+<script>
+    const person = {
+        say: () => {
+            console.log(this);
+        }
+    };
 
-复制代码
-
-`<script>     const person = {         say: () => {             console.log(this);         }     };     console.log(person.say()); // window </script>`
+    console.log(person.say()); // window
+</script>
+```
 
 虽然函数 `say` 是在 `person` 对象上调用的，但是其 this 并不指向 `person`。即便使用 `Function.prototype.bind/call/apply` 函数尝试修改 this 也不行：
 
-js
+```javascript
+person.say.call("Hello"); // window
+person.say.apply("Hello", []); // window
+person.say.bind("Hello")(); // window
+```
 
-复制代码
-
-`person.say.call("Hello"); // window person.say.apply("Hello", []); // window person.say.bind("Hello")(); // window`
 
 关于 Function Environment Record 的其他属性和函数，我们在以后的章节中还会讲到，现在来看 Global Environment Record。
 
@@ -241,17 +248,15 @@ js
 
 Global Environment Record 也有自己专属的属性和函数，如 `GlobalThisValue`、`GetThisBinding()`。它的 `HasThisBinding()` 始终返回 true，因此在全局环境下，this 是有值的，浏览器下是 `window/globalThis`，Node.js 环境下是 `global`：
 
-html
+```html
+<script>
+console.log(this); // window
+</script>
+```
 
-复制代码
-
-`<script> console.log(this); // window </script>`
-
-sh
-
-复制代码
-
-`$ node -e "console.log(this)"  # global`
+```shell
+$ node -e "console.log(this)"  # global
+```
 
 ### Module Environment Record
 
@@ -259,6 +264,9 @@ sh
 
 Module Environment Record 的 `HasThisBinding()` 始终返回 true，但是 `GetThisBinding()` 却始终返回 undefined，这样的效果就是：**在 ES Modules 里面的全局 this 始终是 undefined**。
 
+```javascript
+
+```
 js
 
 复制代码
