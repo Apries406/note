@@ -534,7 +534,7 @@ if (document.all) {
 }
 ```
 
-是的，虽然 document.all 不是 undefined，但它在 typeof 下却表现得像 undefined，而且在逻辑上是假值。这一切都是为了不破坏过去编写的网站代码，ECMA262 专门为其抽象了一个叫做 [`[IsHTMLDDA]`](https://link.juejin.cn/?target=https%3A%2F%2Ftc39.es%2Fecma262%2F%23sec-IsHTMLDDA-internal-slot "https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot") 的概念。
+是的，虽然 document.all 不是 undefined，但它在 typeof 下却表现得像 undefined，而且在逻辑上是假值。这一切都是为了不破坏过去编写的网站代码，ECMA262 专门为其抽象了一个叫做 [([IsHTMLDDA])](https://link.juejin.cn/?target=https%3A%2F%2Ftc39.es%2Fecma262%2F%23sec-IsHTMLDDA-internal-slot "https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot") 的概念。
 
 ## 典型对象的判断
 
@@ -548,11 +548,21 @@ typeof 基本能解决 Primitive 变量的判断，我们还有几个典型对�
 
 答案是 **Array.isArray 比 instanceof 或者 constructor 能胜任对 Proxy 的判定工作**。我们不妨看下面一段代码：
 
-ts
+```typescript
+const proxy = new Proxy([], {
+    get(target, p) {
+        if ('constructor' === p) return String;
+        return Reflect.get(target, p);
+    },
+    getPrototypeOf() {
+        return null;
+    }
+});
 
-复制代码
-
-``const proxy = new Proxy([], {     get(target, p) {         if ('constructor' === p) return String;         return Reflect.get(target, p);     },     getPrototypeOf() {         return null;     } }); console.log(`Array.isArray(proxy)`, Array.isArray(proxy)); // true console.log(`proxy instanceof Array`, proxy instanceof Array); // false console.log(`proxy.constructor === Array`, proxy.constructor === Array); // false``
+console.log(`Array.isArray(proxy)`, Array.isArray(proxy)); // true
+console.log(`proxy instanceof Array`, proxy instanceof Array); // false
+console.log(`proxy.constructor === Array`, proxy.constructor === Array); // false
+```
 
 Proxy 的知识在后面的章节中还会讲到。在上面的例子中，我们篡改了 Proxy 对象的 constructor 和原型链，这使得通过 constructor 或者 instanceof 的方式判断类型的尝试都失效了，唯独 `Array.isArray` 仍然能正常工作，这就是它的优势。
 
@@ -560,11 +570,9 @@ Proxy 的知识在后面的章节中还会讲到。在上面的例子中，我�
 
 其他对象类型就没有这种待遇了，比如我们常用的正则 RegExp。除了它有自己独立的字面量语法之外，RegExp 没有其他任何特别之处。假设我们声明一个自定义类：
 
-ts
-
-复制代码
-
-`class Animal {}`
+```typescript
+class Animal {}
+```
 
 那么，实现 isAnimal 的原理和实现 isRegExp 的原理是等价的。那我这里使用 Animal 来代指任意对象类型，包括 RegExp、Date、Arguments，也包括 Window、Document。
 
@@ -572,35 +580,36 @@ ts
 
 第一种办法，判别其构造函数，不过对象的 constructor 属性一般是可以被覆写的，因此有被伪造的可能：
 
-ts
-
-复制代码
-
-`function isAnimal(variable) {     return variable?.constructor === Animal; }`
+```typescript
+function isAnimal(variable) {
+    return variable?.constructor === Animal;
+}
+```
 
 第二种办法，用 instanceof 做原型链判别，不过对象的原型链也是可以被篡改的：
 
-ts
-
-复制代码
-
-`function isAnimal(variable) {     return variable instanceof Animal; }`
+```typescript
+function isAnimal(variable) {
+    return variable instanceof Animal;
+}
+```
 
 如果你在类中定义了这样一个特殊属性：
-
-ts
-
-复制代码
-
-`class Animal {     get [Symbol.toStringTag]() {         return 'Animal';     } }`
+```typescript
+class Animal {
+    get [Symbol.toStringTag]() {
+        return 'Animal';
+    }
+}
+```
 
 那么也有第三种办法，使用对象基类的 toString 方法：
 
-ts
-
-复制代码
-
-`function isAnimal(variable) {     return Object.prototype.toString.call(variable) === "[object Animal]"; }`
+```typescript
+function isAnimal(variable) {
+    return Object.prototype.toString.call(variable) === "[object Animal]";
+}
+```
 
 Array、RegExp、Date、Arguments、Window、Document 甚至 undefined、null 都可以应用这种办法。不过显然字符串对比的方式更容易被篡改，你可以轻松定义一个伪装类来骗过这个判断。
 
@@ -614,12 +623,15 @@ Array、RegExp、Date、Arguments、Window、Document 甚至 undefined、null �
 
 除了 null 和 undefined 外，其余的 Primitive 类型都可以封装成 Object：
 
-ts
+```javascript
+Object(123)             // 等价于 new Number(123)
+Object(123n)            // 等价于 new BigInt(123n)
+Object("str")           // 等价于 new String("str")
+Object(true)            // 等价于 new Boolean(true)
+Object(Symbol("sym"))
+```
 
-复制代码
-
-`Object(123)             // 等价于 new Number(123) Object(123n)            // 等价于 new BigInt(123n) Object("str")           // 等价于 new String("str") Object(true)            // 等价于 new Boolean(true) Object(Symbol("sym"))`
-
+> [!info]
 > 有 Java 语言背景的同学应该对装箱/拆箱的概念不陌生，和这相比是极其类似的。
 
 虽然这些值在 typeof 下一定都返回 “object”，但是却仍然有着原本的语义，比如：
