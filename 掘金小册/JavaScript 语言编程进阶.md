@@ -1026,21 +1026,21 @@ String 的 search 方法传入一个正则，从左到右返回第一个匹配�
 
 获取首个匹配，显然不需要 g 修饰符。这一层需求我们在 RegExp 和 String 各有方法可以实现，而且有意思的是，它们竟然是等价的：
 
-ts
-
-复制代码
-
-`/\w{4}/.exec("What is your name?")  // ['What', index: 0, input: 'What is your name?', groups: undefined] "What is your name?".match(/\w{4}/) // ['What', index: 0, input: 'What is your name?', groups: undefined]`
+```javascript
+/\w{4}/.exec("What is your name?")  // ['What', index: 0, input: 'What is your name?', groups: undefined]
+"What is your name?".match(/\w{4}/) // ['What', index: 0, input: 'What is your name?', groups: undefined]
+```
 
 注意，只有在没有 g 的条件下它们才等价，有兴趣的同学可以试一试加上 g 修饰符后它们有怎样的输出。
 
 `exec` 和 `test` 是 RegExp 唯二的两个核心函数，而且它们之间也有着微妙的关系：test 正是依靠 exec 来实现的，甚至你也可以写出这样一个 test 出来。如下：
 
-ts
-
-复制代码
-
-`// Custom test RegExp.prototype.test = function (str) {     return this.exec(str) ? true : false; }`
+```javascript
+// Custom test
+RegExp.prototype.test = function (str) {
+    return this.exec(str) ? true : false;
+}
+```
 
 String 的 match 与 search 一样，都会尝试把参数转换成正则。它在 ECMA262 的定义中与 exec 复用了一部分逻辑分支，在没有 g 修饰符之下刚好是等价的。
 
@@ -1048,14 +1048,15 @@ String 的 match 与 search 一样，都会尝试把参数转换成正则。它�
 
 为什么要使用这么奇怪的数据结构呢？可能有一些历史原因，不过就结果上来看也是可以理解的，如果我们想匹配正则中的一部分：
 
-ts
 
-复制代码
-
-`/Wh([a-z]+)\b/.exec("What is your name?") //  ['What', 'at', index: 0, input: 'What is your name?', groups: undefined]`
+```javascript
+/Wh([a-z]+)\b/.exec("What is your name?") //  ['What', 'at', index: 0, input: 'What is your name?', groups: undefined]
+```
+`
 
 看到正则中的小括号了么，再看看结果，字串 “at” 出现在了数组的第二个位置上，如果你的正则有 N 个小括号匹配，那么 exec 的最终结果中就会按照顺序多出 N 个数据出来，这样的数据结构可扩展性更好一些。
 
+> [!info]
 > 我们过去常常使用正则的 `$1`、`$2`、`$3`...属性来拿到这些值，但这些都不是标准属性，不提倡被使用。
 
 接下来我们提高需求难度，来到第三层。
@@ -1064,11 +1065,10 @@ ts
 
 如果只是想简单地拿到所有匹配到的子串，那么使用 String 的 `match` 就好了，只不过不同于刚才，这一次我们必须带上 g（和 y） 修饰符才行：
 
-ts
-
-复制代码
-
-`"Contributors are respected.".match(/\w{4}/g) // ['Cont', 'ribu', 'tors', 'resp', 'ecte'] "Contributors are respected.".match(/\w{4}/gy) // ['Cont', 'ribu', 'tors']`
+```javascript
+"Contributors are respected.".match(/\w{4}/g) // ['Cont', 'ribu', 'tors', 'resp', 'ecte']
+"Contributors are respected.".match(/\w{4}/gy) // ['Cont', 'ribu', 'tors']
+```
 
 可惜却丢失了位置（index）信息。为了弥补这个遗憾，我们就得搬请功能最强大的 API：RegExp 的 exec 和 String 的 `matchAll`。
 
@@ -1078,21 +1078,36 @@ exec 刚刚已经被用来捕获首个匹配了，不过那是在没有 g 和 y 
 
 我们必然要搜索到所有的占位符位置：
 
-ts
-
-复制代码
-
-``const reg = /<!--\s*video:\s*(.+)\s*-->/g; const html = ` <p>text</p> <!-- video: http://someurl/1.mp4 --> <div>sep</div> <!-- video: http://someurl/2.mp4 --> <footer></footer> `; let result; while(result = reg.exec(html)) { // 依次调用exec     // ['\x3C!-- video: http://someurl/1.mp4 -->', 'http://someurl/1.mp4 ', index: 13...     // ['\x3C!-- video: http://someurl/2.mp4 -->', 'http://someurl/2.mp4 ', index: 65...     console.log(result); }``
+```javascript
+const reg = /<!--\s*video:\s*(.+)\s*-->/g;
+const html = `
+<p>text</p>
+<!-- video: http://someurl/1.mp4 -->
+<div>sep</div>
+<!-- video: http://someurl/2.mp4 -->
+<footer></footer>
+`;
+let result;
+while(result = reg.exec(html)) { // 依次调用exec
+    // ['\x3C!-- video: http://someurl/1.mp4 -->', 'http://someurl/1.mp4 ', index: 13...
+    // ['\x3C!-- video: http://someurl/2.mp4 -->', 'http://someurl/2.mp4 ', index: 65...
+    console.log(result);
+}
+```
 
 看到了吗？我们循环调用 exec，直到返回 null 为止。这里隐含着一个特性：在带有修饰符 g（或 y）的 RegExp 对象上调用 exec，RegExp 对象本身是带有状态的，这个状态就是 `lastIndex`，代表下一次搜索的起始位置，初始为 0。
 
 如果嫌 exec 使用起来麻烦，我们还有 String 的 matchAll 可用：
 
-ts
-
-复制代码
-
-`const result = "What is your name?".matchAll(/\w{4}/g) // [ //   [ 'What', index: 0, input: 'What is your name?', groups: undefined ], //   [ 'your', index: 8, input: 'What is your name?', groups: undefined ], //   [ 'name', index: 13, input: 'What is your name?', groups: undefined ] // ] Array.from(result);`
+```javascript
+const result = "What is your name?".matchAll(/\w{4}/g)
+// [
+//   [ 'What', index: 0, input: 'What is your name?', groups: undefined ],
+//   [ 'your', index: 8, input: 'What is your name?', groups: undefined ],
+//   [ 'name', index: 13, input: 'What is your name?', groups: undefined ]
+// ]
+Array.from(result);
+```
 
 matchAll 的名字已经说明了它的行为特点，同时为了语义上的一致性，它强制要求传入的正则带有 g 修饰符，否则就会抛出异常。
 
@@ -1110,14 +1125,16 @@ matchAll 的名字已经说明了它的行为特点，同时为了语义上的�
 
 如果只需要替换第一个匹配的话，那么用 replace 即可，参数可以是字符串，也可以是不带 g 的正则：
 
-ts
-
-复制代码
-
-`"ABCB".replace('B', "-") // "A-CB" "ABCB".replace(/B/, "-") // "A-CB"`
+```javascript
+"ABCB".replace('B', "-") // "A-CB"
+"ABCB".replace(/B/, "-") // "A-CB"
+```
 
 如果要替换全部匹配的话，可以依旧使用 replace，只不过必须传入带 g 的正则：
 
+```javascript
+
+```
 ts
 
 复制代码
