@@ -265,21 +265,23 @@ $ node -e "console.log(this)"  # global
 Module Environment Record 的 `HasThisBinding()` 始终返回 true，但是 `GetThisBinding()` 却始终返回 undefined，这样的效果就是：**在 ES Modules 里面的全局 this 始终是 undefined**。
 
 ```javascript
+// index.js
+import("./lib.js");
 
+// lib.js
+console.log(this); // undefined
 ```
-js
-
-复制代码
-
-`// index.js import("./lib.js"); // lib.js console.log(this); // undefined`
 
 这样的设计能够避免一些潜在的歧义，比如下面这段代码在顶层上下文中运行：
 
-scss
+```javascript
+function foo() {
+    console.log(this);
+}
 
-复制代码
+foo();
 
-`function foo() {     console.log(this); } foo();`
+```
 
 但是如果不是 ES Modules，那么 this 指向将取决于是否是 `strict` 模式：
 
@@ -288,7 +290,8 @@ scss
 
 ES Modules 环境避免了这种歧义，this 始终是 undefined，不会意外地修改到全局的数据。
 
-> 我们忽略了对 `Object Environment Record` 的讨论，因为它代表的 `with` 是不建议使用的。
+> [!info]
+>我们忽略了对 `Object Environment Record` 的讨论，因为它代表的 `with` 是不建议使用的。
 
 我们总结一下可以发现：函数 `GetThisBinding()` 并非像 `HasThisBinding()` 定义在 Environment Record 中，而是被 Global Environment Record、Function Environment Record 和 Module Environment Record 各种子类分别实现的，也只有它们才有 this。
 
@@ -298,57 +301,58 @@ this 可以任意访问，最多也就是 undefined 而已，但普通变量则�
 
 在 ES6 之前，我们只能用 `var` 来声明变量，我还记得有一条不成文的规矩是：**应该把所有 var 语句提到当前作用域的最前面**，后来被 `ESLint` 收录成 [vars-on-top](https://link.juejin.cn/?target=https%3A%2F%2Feslint.org%2Fdocs%2Flatest%2Frules%2Fvars-on-top "https://eslint.org/docs/latest/rules/vars-on-top") 规则。之所以要这样做，是因为 var 声明的变量具有提升的效果，也就是我们可以在声明之前访问到它，只不过值肯定是 **undefined**。
 
-js
-
-复制代码
-
-`console.log(foo); // undefined var foo = "hello";`
+```javascript
+console.log(foo); // undefined
+var foo = "hello";
+```
 
 把 var 声明提到最上面的初衷是想让开发者对上下文数据环境有明确的预期，不会不小心访问到未经过初始化的变量，导致带来意外的错误。
 
 var 声明的变量也确实呼应了前面对于 “JavaScript 没有块级作用域”的特征，一个大括号根本无法阻止 var 的作用范围：
 
-js
+```javascript
+{
+    var foo = 100;
+}
 
-复制代码
-
-`{     var foo = 100; } console.log(foo); // 100`
+console.log(foo); // 100
+```
 
 甚至是一个 `try...catch` 语句：
+```javascript
+try {
+    var foo = 8;
+    throw Error();
+} catch {
+    var bar = 9;
+}
 
-js
-
-复制代码
-
-`try {     var foo = 8;     throw Error(); } catch {     var bar = 9; } console.log(foo, bar); // 8 9`
+console.log(foo, bar); // 8 9
+```
 
 `for` 语句亦如此：
-
-js
-
-复制代码
-
-`for (var i = 0; i< 5; ++i); console.log(i); // 5`
+```javascript
+for (var i = 0; i< 5; ++i);
+console.log(i); // 5
+```
 
 所以很容易一个不小心就会造成变量的冲突。为了解决这个问题，ES6 引入了 `let` 和 `const` 关键字来声明具有块级作用域的变量，它们的区别就是一个的值可变，一个不可变。
 
 我们以 let 为例：
-
-js
-
-复制代码
-
-`{     let foo = 100; } console.log(foo); // ❌ Uncaught ReferenceError: foo is not defined`
+```javascript
+{
+    let foo = 100;
+}
+console.log(foo); // ❌ Uncaught ReferenceError: foo is not defined
+```
 
 类似的，在 `try...catch` 和 `for` 语句中声明变量，外边均不能访问到，也杜绝了冲突的可能。
 
 如果在 let 声明之前使用变量，则会触发未初始化异常：
-
-js
-
-复制代码
-
-`console.log(foo); // ❌ Uncaught ReferenceError: Cannot access 'foo' before initialization let foo = 100;`
+```javascript
+console.log(foo); // ❌ Uncaught ReferenceError: Cannot access 'foo' before initialization
+let foo = 100;
+```
 
 这里是一个面试常见的考点，只要你说出 `TDZ` 一词，基本上就算合格了。
 
