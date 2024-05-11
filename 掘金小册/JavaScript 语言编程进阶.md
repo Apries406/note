@@ -1133,21 +1133,14 @@ matchAll 的名字已经说明了它的行为特点，同时为了语义上的�
 如果要替换全部匹配的话，可以依旧使用 replace，只不过必须传入带 g 的正则：
 
 ```javascript
-
+"ABCB".replace(/B/g, "-") // "A-C-"
 ```
-ts
-
-复制代码
-
-`"ABCB".replace(/B/g, "-") // "A-C-"`
 
 在同样的参数下，也可以使用 replaceAll。replaceAll 相比 replace 而言可以实现在传入字符串参数的情况下也能做到全部替换：
 
-ts
-
-复制代码
-
-`"ABCB".replaceAll('B', "-") // "A-C-"`
+```javascript
+"ABCB".replaceAll('B', "-") // "A-C-"
+```
 
 我总结出下面这张图，可以用作使用哪一个函数的判断之用：
 
