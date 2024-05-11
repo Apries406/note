@@ -1008,22 +1008,17 @@ RegExp 和 String 都有函数可以执行正则搜索操作。我把实际需�
 ```
 
 如果 test 的参数不是字符串的话，它就会调用内部方法 ToString 来强制转换为字符串。注意这一步是可能抛出异常的，例如传入一个无法转换为字符串的 Symbol 实例：
-
-ts
-
-复制代码
-
-`/\d{2}/.test(Symbol()) // ❌ TypeError`
+```javascript
+/\d{2}/.test(Symbol()) // ❌ TypeError
+```
 
 test 之于 RegExp 就如同 includes 之于 String，都是从左到右寻找匹配，没找到则返回 false。如果想知道匹配到的位置，String 有 indexOf，而 RegExp 仍然需要依赖 String 的一个函数，叫做 `search`。
 
 String 的 search 方法传入一个正则，从左到右返回第一个匹配到的子串的首字母位置：
 
-ts
-
-复制代码
-
-`"AB23CD87K".search(/\d{2}/) // 2`
+```javascript
+"AB23CD87K".search(/\d{2}/) // 2
+```
 
 这一步已经带有首个匹配的位置信息了，如果不满足于只知道位置的话，那么就进入下一层需求——获取首个匹配的全量信息。
 
