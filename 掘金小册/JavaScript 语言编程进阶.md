@@ -449,21 +449,15 @@ typeof 返回值一定是这 8 种字符串之一："undefined"、"string"、"bo
 
 **首先是空类型 null 用 typeof 判断不出来，这是 Primitive 类型中唯一一种 typeof 不支持** **的**。据说这是 JavaScript 当年的设计者引入的一个 Bug，由于兼容性的考虑一代代传承了下来，以至于 20 多年后我们编写下面的代码仍然是不安全的：
 
+```javascript
+if ("object" === typeof variable) {}
 ```
-```
-ts
-
-复制代码
-
-`if ("object" === typeof variable) {}`
 
 好在不使用 typeof 也可以安全、简单地判断 null：
 
-ts
-
-复制代码
-
- `if (foo === null) {}`
+```javascript
+ if (foo === null) {}
+```
 
 **其次，函数 Function 类型得到了 typeof 的单独支持，极大方便了我们日常使用。**
 
@@ -476,20 +470,15 @@ ts
 ## undefined 的特殊之处
 
 一般来说，在我们的认知当中，只有`typeof undefined`才会返回`"undefined"`：
-
-ts
-
-复制代码
-
-`if ("undefined" === typeof variable) {}`
+```typescript
+if ("undefined" === typeof variable) {}
+```
 
 有人可能会问到，和`undefined`做全等判断岂不是更简单：
 
-ts
-
-复制代码
-
-`if (undefined === variable) {}`
+```typescript
+if (undefined === variable) {}
+```
 
 大部分场景下是可以的，但有例外。
 
@@ -497,19 +486,19 @@ ts
 
 这一现象从 ES5 开始得到了改进，你现在可以打开 Chrome 的开发者工具，在控制台中输入`undefined=1`，然后用`console.log(undefined)`打印出来，会发现 undefined 的值并没有变化。事实上，在 strict 模式（后面章节会讲到）下，下面的代码会直接抛出 TypeError 错误，告诉你 undefined 是只读的：
 
-ts
-
-复制代码
-
-`"use strict"; undefined = 1; // ❌ Uncaught TypeError: Cannot assign to read only property 'undefined' of object '#<Window>'`
+```typescript
+"use strict";
+undefined = 1; // ❌ Uncaught TypeError: Cannot assign to read only property 'undefined' of object '#<Window>'
+```
 
 虽然现代浏览器已经没有了这个顾虑，但是 undefined 还不是关键字，它依然可以作为变量名在局部上下文中声明：
 
-ts
-
-复制代码
-
-`{     const undefined = 1;     console.log(typeof undefined); // "number" }`
+```javascript
+{
+    const undefined = 1;
+    console.log(typeof undefined); // "number"
+}
+```
 
 显然在这个上下文中用全等`===`来判断，是不可以得出期望的结果的。因此，为了保守起见，我们在判断一个变量是否是 undefined 的时候，推荐的写法还是`"undefined" === typeof variable`。ESLint 有一条规则 [no-undefined](https://link.juejin.cn/?target=https%3A%2F%2Feslint.org%2Fdocs%2Flatest%2Frules%2Fno-undefined "https://eslint.org/docs/latest/rules/no-undefined") 就是应对这件事的。
 
@@ -519,29 +508,33 @@ ECMA262 自 1999 年发布 ES3 到 2009 年发布 ES5 一共有接近 10 年时�
 
 IE 在`document`对象上有一个属性`all`，会返回当前页面中的所有元素，它是可遍历的：
 
-ts
-
-复制代码
-
-`for (const element of document.all) {     console.log(element.tagName); }`
+```javascript
+for (const element of document.all) {
+    console.log(element.tagName);
+}
+```
 
 然而它在早年间却有着更重要的使命——判断是否是 IE 浏览器：
 
-ts
-
-复制代码
-
-`if (document.all) {     // IE } else {     // not IE }`
+```javascript
+if (document.all) {
+    // IE
+} else {
+    // not IE
+}
+```
 
 因为只有 IE 浏览器实现了这样一个非 W3C 标准的 API。后面的浏览器虽然实现了`document.all`的数据结构，但是却有着完全不一样的 typeof 表现和布尔值表现：
 
-ts
+```javascript
+typeof document.all // "undefined"
 
-复制代码
+if (document.all) {
+    // never enter
+}
+```
 
-`typeof document.all // "undefined" if (document.all) {     // never enter }`
-
-是的，虽然 document.all 不是 undefined，但它在 typeof 下却表现得像 undefined，而且在逻辑上是假值。这一切都是为了不破坏过去编写的网站代码，ECMA262 专门为其抽象了一个叫做 [[[IsHTMLDDA]]](https://link.juejin.cn/?target=https%3A%2F%2Ftc39.es%2Fecma262%2F%23sec-IsHTMLDDA-internal-slot "https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot") 的概念。
+是的，虽然 document.all 不是 undefined，但它在 typeof 下却表现得像 undefined，而且在逻辑上是假值。这一切都是为了不破坏过去编写的网站代码，ECMA262 专门为其抽象了一个叫做 [`[IsHTMLDDA]`](https://link.juejin.cn/?target=https%3A%2F%2Ftc39.es%2Fecma262%2F%23sec-IsHTMLDDA-internal-slot "https://tc39.es/ecma262/#sec-IsHTMLDDA-internal-slot") 的概念。
 
 ## 典型对象的判断
 
