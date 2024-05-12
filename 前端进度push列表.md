@@ -8,7 +8,7 @@
 - [x] `HTML` 4.19
 - [ ] `CSS` 5.15
 # 郑蓉
-- [ ] `Javascript` 5.25
+- [ ] `Javascript` 5.25 （看不完紫砂）
 # 杨家瑶
 - [x] `HTML` 4.19
 - [ ] `CSS` 5.10
