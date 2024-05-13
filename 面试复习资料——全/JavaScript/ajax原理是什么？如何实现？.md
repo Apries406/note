@@ -1,4 +1,4 @@
-# 面试官：ajax原理是什么？如何实现？
+	# 面试官：ajax原理是什么？如何实现？
 
  ![](https://static.vue-js.com/a35a2950-7b2a-11eb-ab90-d9ae814b240d.png)
 
