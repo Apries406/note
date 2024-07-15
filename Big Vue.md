@@ -20,5 +20,7 @@
 				1. 创建 component instance
 				2. setup compoent
 					1. porps->slots->setup()->render()
-				3. setupRenderEffct
-					1. render()->BeforeMount->path->mouted
+				3. setupRenderEffect
+					1. render()->BeforeMount->patch(递归)->mouted
+			2. 组件更新
+				1. 检测
