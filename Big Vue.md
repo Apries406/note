@@ -23,4 +23,7 @@
 				3. setupRenderEffect
 					1. render()->BeforeMount->patch(递归)->mouted
 3. 组件更新
-	1. xiang'yin's
+	1. 响应式更新
+	2. 触发组件effect执行，instance.update
+	3. 执行当前组件的render获取到vnode(subTree)
+	4. beforeMount->onVnodeBeforeUpdate->patch->updated->onVnodeUpdated
