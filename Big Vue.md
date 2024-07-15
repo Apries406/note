@@ -2,5 +2,10 @@
 - @vue/compiler-sfc
 	- 编译 SFC 2 JS
 - @vue/compiler-dom & @vue/compiler-core 
-	- 解析 template 2 render function
-- @vue
+	- 解析 template 2 render function+
+- h 函数创建虚拟节点
+- @vue/runtime-dom 
+- @vue/runtime-core
+	- 跑起来全部靠这个
+- @vue/reactivity
+	- HE核中核
