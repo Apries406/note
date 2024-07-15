@@ -10,3 +10,8 @@
 - @vue/reactivity
 	- HE核中核
 	- Proxy 对象，get/set
+# 初始化流程
+1. 创建 app
+2. 初始化 mount 过程
+	1. rootComponent -> VNode
+	2. render -> patch 处理不同类型的组件
