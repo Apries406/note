@@ -14,4 +14,11 @@
 1. 创建 app
 2. 初始化 mount 过程
 	1. rootComponent -> VNode
-	2. render -> patch 处理不同类型的组件
+	2. render -> patch 处理不同类型的组件 *$Flags$区分*
+		1. 处理组件类型
+			1. 组件初始化
+				1. 创建 component instance
+				2. setup compoent
+					1. porps->slots->setup()->render()
+				3. setupRenderEffct
+					1. render()->BeforeMount->path->mouted
