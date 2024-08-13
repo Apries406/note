@@ -88,3 +88,14 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 - Scheduler - 调度器 - 调度任务优先级，高优先级任务先进入 Reconciler
 - Reconciler - 协调器 - 决定更新什么组件
 - Renderer - 渲染器 - 渲染更新后的组件
+
+### Scheduler
+
+我们需要在浏览器有剩余时间时通知我们，来作为任务中断的信号。
+
+其实在部分浏览器中已经有了这样的一个Web API，即`requestCallback`。
+其弊端：
+- 浏览器兼容性
+- 触发频率不稳定，受多种因素影响，比如：切换浏览器Tab。
+
+因此，React 实现了功能更强大的`requestIdleCallback`这一 Ployfill, 这就是 **Scheduler**。除了在空闲时间时chu'fa
