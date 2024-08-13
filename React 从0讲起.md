@@ -70,3 +70,9 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 - [ReactNative](https://www.npmjs.com/package/react-native)渲染器，渲染 App 原生组件
 - [ReactTest](https://www.npmjs.com/package/react-test-renderer)渲染器，渲染出纯 Js 对象用于测试
 - [ReactArt](https://www.npmjs.com/package/react-art)渲染器，渲染到 Canvas, SVG 或 VML (IE8)
+
+当有更新发生时，Reconciler 通知 Renderer ，将变化后的需要更新的组件渲染到宿主环境。
+
+### 缺点
+
+在 `Reconciler` 时，`mount`组件
