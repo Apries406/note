@@ -55,4 +55,18 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 - Renderer - 渲染器 - 渲染更新后的组件
 ### Reconciler
 
+触发更新时，Reconciler 做如下工作
+- 调用函数组件，或者类组件的`render`方法，把 jsx 转换为 vDOM
+- 将 vDOM 和上次更新的 vDOM 对比
+- 找出本次更新变化的 vDOM
+- 通知 Renderer 渲染更新的 vDOM 
 
+### Renderer
+
+由于 React 是一个支持跨平台的框架，所以在不同的平台有不同的 Renderer。我们最熟悉最常用的就是浏览器环境的 Renderer -> ReactDOM 了
+
+除此之外，还有：
+
+- [ReactNative](https://www.npmjs.com/package/react-native)渲染器，渲染 App 原生组件
+- [ReactTest](https://www.npmjs.com/package/react-test-renderer)渲染器，渲染出纯 Js 对象用于测试
+- [ReactArt](https://www.npmjs.com/package/react-art)渲染器，渲染到 Canvas, SVG 或 VML (IE8)
