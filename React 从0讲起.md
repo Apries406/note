@@ -8,8 +8,7 @@ React 官方认为：
 对于浏览器来说，无非两类：
 - 复杂计算CPU耗时
 - 异步请求等待过程阻塞了IO
-
-### CPU 瓶颈问题
+## CPU 瓶颈问题
 
 假如我们需要渲染十万个数据如下：
 ```tsx
@@ -46,3 +45,14 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 可以使用`ReactDOM.unstable_createRoot`来开启时间切片 - `Concurrent Mode`
 
 这样就把**同步的更新**转为了**可中断的异步更新**
+
+## IO 瓶颈
+网络延迟使用 suspence和 useDeferredValue
+
+## React 15架构
+
+- Reconciler - 协调器 - 决定更新什么组件
+- Renderer - 渲染器 - 渲染更新后的组件
+### Reconciler
+
+
