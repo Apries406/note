@@ -98,4 +98,9 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 - 浏览器兼容性
 - 触发频率不稳定，受多种因素影响，比如：切换浏览器Tab。
 
-因此，React 实现了功能更强大的`requestIdleCallback`这一 Ployfill, 这就是 **Scheduler**。除了在空闲时间时chu'fa
+因此，React 实现了功能更强大的`requestIdleCallback`这一 Ployfill, 这就是 **Scheduler**。除了在空闲时间时触发回调的功能外， Scheduler还提供了多种调度优先级任务设置。
+
+>**ployfill 的解释**
+>A shim that mimics a future API providing fallback functionality to older browsers.  
+ 模拟未来api的垫片,为旧版本的浏览器提供了应变计划.
+
