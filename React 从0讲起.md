@@ -104,3 +104,5 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 >A shim that mimics a future API providing fallback functionality to older browsers.  
  模拟未来api的垫片,为旧版本的浏览器提供了应变计划.
 
+
+### Reconciler
