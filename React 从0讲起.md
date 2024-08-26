@@ -106,3 +106,6 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 
 
 ### Reconciler
+
+我们知道，在 React15 中，Reconciler 是递归处理 vDom 的。
+而 React16 之后，我们需要一个可中断的异步更新， 源码：[ReactFiberWorkLoop.js](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1673)
