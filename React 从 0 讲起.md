@@ -256,6 +256,7 @@ function FiberNode(
 
   this.ref = null;
 
+  // 作为动态工作单元的属性
   this.pendingProps = pendingProps;
   this.memoizedProps = null;
   this.updateQueue = null;
@@ -273,9 +274,22 @@ function FiberNode(
   this.firstEffect = null;
   this.lastEffect = null;
 
+  // Scheduler 调度优先级相关
   this.lanes = NoLanes;
   this.childLanes = NoLanes;
 
+  // 指向该 Fiber 在领一次更新时对应的 Fiber
   this.alternate = null;
   }
+```
+
+#### 架构解析 Fiber
+
+每个 Fiber 节点都对应着一个 React Element, 那么多个 Fiber 节点是如何链接形成 Fiber 树的呢？ 依靠如下三个属性:
+```typescript
+{
+	this.return = null;  // 指向父级 Fiber
+	this.child = null;   // 指向最左第一个子节点
+	this.sibling = null; // zhi'xiang
+}
 ```
