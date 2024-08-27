@@ -352,3 +352,10 @@ function App() {
   this.childLanes = NoLanes;
 }
 ```
+
+## Fiber 架构的工作原理
+
+从 Fiber 架构中我们知道
+- Fiber 节点能保存 DOM 节点
+- Fiber 节点构成的 Fiber 树就对应了 DOM 树
+那我们该如何更新 DOM 呢？=> 这就需要使用“双缓存”
