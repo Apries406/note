@@ -307,3 +307,4 @@ function App() {
 ```
 
 这样的一个组件对应着如下 Fiber 树结构：
+![[Pasted image 20240827214917.png]]
