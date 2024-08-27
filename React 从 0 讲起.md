@@ -241,14 +241,14 @@ function FiberNode(
   key: null | string,
   mode: TypeOfMode,
 ) {
-  // 静态jie
+  // 静态数据结构属性
   this.tag = tag;
   this.key = key;
   this.elementType = null;
   this.type = null;
   this.stateNode = null;
 
-  // Fiber
+  // 用于链接其他 Fiber 节点形成 Fiber 树
   this.return = null;
   this.child = null;
   this.sibling = null;
