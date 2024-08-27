@@ -228,4 +228,9 @@ export default App
 
 ### Fiber 的三种含义
 
-1. 从架构上lai
+1. 从**架构**上来说，之前的 Reconciler 采用递归的方式执行，数据保存在递归调用栈中，所以被称为`stack Reconciler`。React 16 的 Reconciler 基于 `Fiber 节点` 实现，被称为`Fiber Reconciler`
+2. 从**数据结构**上来说，每个`Fiber 节点`对应一个`React Element`，保存了该组件的类型，对应的 DOM 节点等信息
+3. 从**动态工作单元**上来说，每个`Fiber 节点`保存了本次更新中**组件改变的状态**、**要执行的工作**
+
+### Fiber 的结构
+
