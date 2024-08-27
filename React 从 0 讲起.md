@@ -174,3 +174,6 @@ React 这样解释 Reconciler
 >[!info]
 >![[Pasted image 20240827154515.png]]
 
+### Renderer
+
+`Renderer` 根据 `Reconciler` 为 vDom 打的 Tag， 同步执行对应的 DOM 操作.
