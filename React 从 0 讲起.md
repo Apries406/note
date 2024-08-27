@@ -176,4 +176,30 @@ React 这样解释 Reconciler
 
 ### Renderer
 
-`Renderer` 根据 `Reconciler` 为 vDom 打的 Tag， 同步执行对应的 DOM 操作.
+`Renderer` 根据 `Reconciler` 为 vDom 打的 Tag， 同步执行对应的 DOM 操作
+
+以下列代码为例
+```tsx
+import { useState } from 'react'
+import './App.css'
+
+function App() {
+  const [count, setCount] = useState(1)
+
+  const handleClick = () => { 
+    setCount((count)=>count+1)
+  }
+  return (
+      <ul>
+      <button onClick={handleClick}>乘以 {count}</button>
+      <li>{1 * count}</li>
+      <li>{2 * count}</li>
+      <li>{3 * count}</li>
+      </ul>
+  )
+}
+
+export default App
+```
+
+他的更新流程为：
