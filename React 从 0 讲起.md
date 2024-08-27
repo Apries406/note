@@ -325,3 +325,30 @@ function App() {
   this.stateNode = null;
 }
 ```
+
+#### 动态工作单元解析 Fiber
+```typescript
+{
+ // 作为动态工作单元的属性
+  this.pendingProps = pendingProps;
+  this.memoizedProps = null;
+  this.updateQueue = null;
+  this.memoizedState = null;
+  this.dependencies = null;
+
+  this.mode = mode;
+
+  // 本次更新会造成的 DOM 操作
+  this.effectTag = NoEffect;
+  this.subtreeTag = NoSubtreeEffect;
+  this.deletions = null;
+  this.nextEffect = null;
+
+  this.firstEffect = null;
+  this.lastEffect = null;
+
+  // Scheduler 调度优先级相关
+  this.lanes = NoLanes;
+  this.childLanes = NoLanes;
+}
+```
