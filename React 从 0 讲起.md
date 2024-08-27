@@ -112,3 +112,12 @@ JS脚本执行 --> 样式布局 --> 样式渲染
 
 我们可以看见，更新操作从**递归处理**变成了**可中断的循环**。每次循环都会调用`shouldYield`判断
 
+```javascript
+function workLoopConcurrent() {
+// Perform work until Scheduler asks us to yield
+// * 一直工作直到调度器要求我们让出资源
+  while (workInProgress !== null && !shouldYield()) {
+    performUnitOfWork(workInProgress);
+  }
+}
+```
