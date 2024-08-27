@@ -156,12 +156,21 @@ export const LifecycleEffectMask = /*          */ 0b000001110100100;
 export const HostEffectMask = /*               */ 0b000011111111111;
 
 // These are not really side effects, but we still reuse this field.
+// 这些都不是真正的副作用，但我们仍然重用这个字段。
 export const Incomplete = /*                   */ 0b000100000000000;
 export const ShouldCapture = /*                */ 0b001000000000000;
 export const ForceUpdateForLegacySuspense = /* */ 0b100000000000000;
 
 // Union of side effect groupings as pertains to subtreeTag
+// 合并与subtreeTag相关的副作用分组
 export const BeforeMutationMask = /*           */ 0b000001100001010;
 export const MutationMask = /*                 */ 0b000010010011110;
 export const LayoutMask = /*                   */ 0b000000010100100;
 ```
+
+整个 **Scheduler** 与 **Reconciler** 的工作都在内存中进行，只有**当所有组件**都完成**Reconciler**的工作，才会统一交给**Renderer**。
+
+React 这样解释 Reconciler
+>[!info]
+>![[Pasted image 20240827154515.png]]
+
