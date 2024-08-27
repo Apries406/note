@@ -309,3 +309,19 @@ function App() {
 这样的一个组件对应着如下 Fiber 树结构：
 ![[Pasted image 20240827214917.png]]
 #### 静态数据结构解析 Fiber
+```typescript
+{
+  // 静态数据结构属性
+
+  // Fiber 对应组件的类型：Function / Class / Host
+  this.tag = tag; 
+  // key 属性
+  this.key = key;
+  // 大部分情况同 type, 某些情况不同，比如用 React.memo 包裹 FC
+  this.elementType = null;
+  // FC -> 函数本身， CC -> Class，HC -> DOM 节点 TagName
+  this.type = null;
+  // 指向真实 DOM 节点 
+  this.stateNode = null;
+}
+```
