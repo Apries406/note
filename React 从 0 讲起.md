@@ -205,4 +205,5 @@ export default App
 他的更新流程为：
 ![[Pasted image 20240827164635.png]]
 
-<span style="border="2px solid red">红色框</span>内
+<span style="border: 2px dashed red; padding: 2px;">红色框</span> 内的部分随时都可能由于以下原因被打乱：
+- 
