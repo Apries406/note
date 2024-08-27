@@ -295,3 +295,15 @@ function FiberNode(
 ```
 
 现在来举个例子，例如下列的组件结构：
+```tsx
+function App() {
+  return (
+    <div>
+      <h1>child 1</h1>
+      <h2>child 2</h2>
+    </div>
+  )
+}
+```
+
+这样的一个组件对应着如下 Fiber 树结构：
