@@ -289,7 +289,9 @@ function FiberNode(
 ```typescript
 {
 	this.return = null;  // 指向父级 Fiber
-	this.child = null;   // 指向最左第一个子节点
-	this.sibling = null; // zhi'xiang
+	this.child = null;   // 指向最左第一个子 Fiber
+	this.sibling = null; // 指向右边第一个兄弟 Fiber
 }
 ```
+
+现在来举个例子，例如下列的组件结构：
