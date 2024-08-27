@@ -121,3 +121,47 @@ function workLoopConcurrent() {
   }
 }
 ```
+
+但是这里出现了一个新问题，就是在中断更新时，我们会遇到**DOM渲染不完全**的问题。
+React 16是怎么处理的呢？
+
+在React 16 中，**`Reconciler`与`Renderer`不再是交替工作。当`Scheduler`将任务交给`Reconciler`后，`Reconciler`会为变化的虚拟 DOM 打上*增/删/改*的标记**
+```javascript
+export type SideEffectTag = number;
+
+// 请不要更改这两个值。它们由 React Dev Tools 使用。
+export const NoEffect = /*                     */ 0b000000000000000;
+export const PerformedWork = /*                */ 0b000000000000001;
+
+// 您可以更改其余部分(并添加更多内容)。
+export const Placement = /*                    */ 0b000000000000010;
+export const Update = /*                       */ 0b000000000000100;
+export const PlacementAndUpdate = /*           */ 0b000000000000110;
+export const Deletion = /*                     */ 0b000000000001000;
+export const ContentReset = /*                 */ 0b000000000010000;
+export const Callback = /*                     */ 0b000000000100000;
+export const DidCapture = /*                   */ 0b000000001000000;
+export const Ref = /*                          */ 0b000000010000000;
+export const Snapshot = /*                     */ 0b000000100000000;
+export const Passive = /*                      */ 0b000001000000000;
+export const PassiveUnmountPendingDev = /*     */ 0b010000000000000;
+export const Hydrating = /*                    */ 0b000010000000000;
+export const HydratingAndUpdate = /*           */ 0b000010000000100;
+
+// 被动 & 更新 & 回调 & Ref & 快照
+export const LifecycleEffectMask = /*          */ 0b000001110100100;
+
+// Union of all host effects
+// 所有宿主效果的联合
+export const HostEffectMask = /*               */ 0b000011111111111;
+
+// These are not really side effects, but we still reuse this field.
+export const Incomplete = /*                   */ 0b000100000000000;
+export const ShouldCapture = /*                */ 0b001000000000000;
+export const ForceUpdateForLegacySuspense = /* */ 0b100000000000000;
+
+// Union of side effect groupings as pertains to subtreeTag
+export const BeforeMutationMask = /*           */ 0b000001100001010;
+export const MutationMask = /*                 */ 0b000010010011110;
+export const LayoutMask = /*                   */ 0b000000010100100;
+```
