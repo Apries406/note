@@ -416,3 +416,4 @@ createRoot(document.getElementById('root')!).render(<App />)
 `fiberRoot`的`current`会指向当前页面上已渲染的`fiber Tree`，即`current Fiber Tree`
 
 但是由于是**首屏渲染**，页面中还没有挂载任何的 DOM， 所以`fiberRoot.current`指向的`rootFiber`没有任何的**子`fiber`**.=> 即 `curent Fiber Tree `为空
+![[Pasted image 20240828170501.png]]
