@@ -414,3 +414,5 @@ createRoot(document.getElementById('root')!).render(<App />)
 因为我们在应用中可以多次调用`render`渲染不同的组件树，他们会拥有不同的`rootFiber`。但是整个应用的根节点只有一个，就是`fiberRoot`
 
 `fiberRoot`的`current`会指向当前页面上已渲染的`fiber Tree`，即`current Fiber Tree`
+
+但是由于是**首屏渲染**，页面中还没有挂载任何的 DOM， 所以`fiberRoot.current`指向的`rootFiber`没有任何的**子`fiber`**.=》
