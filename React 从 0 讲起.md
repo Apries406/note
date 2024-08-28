@@ -407,3 +407,4 @@ function App() {
 createRoot(document.getElementById('root')!).render(<App />)
 ```
 
+1. 首次执行`render`会创建`fiberRootNode`(源码叫`fiberRoot`)和
