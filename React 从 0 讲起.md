@@ -369,4 +369,6 @@ function App() {
 
 这种在**内存中构建并替换**的技术叫做**双缓存**
 
-`React` 使用“双缓存”来完成`Fiber Tree`的构建与替换，ji
+`React` 使用“双缓存”来完成`Fiber Tree`的构建与替换，即`DOM Tree`的**创建**与**更新**
+
+### 双缓冲 Fiber 树
