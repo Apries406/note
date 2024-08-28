@@ -372,3 +372,7 @@ function App() {
 `React` 使用“双缓存”来完成`Fiber Tree`的构建与替换，即`DOM Tree`的**创建**与**更新**
 
 ### 双缓冲 Fiber 树
+
+通过使用“双缓存”技术，在 React 中最多会同时存在**两颗 `Fiber` 树**。
+- 当前屏幕显示的 `Fiber 树` 称为 **`Current Fiber` 树**
+- 正在内存中构建的 `Fiber 树` 称为 `workInProgress` 树**
