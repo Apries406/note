@@ -407,7 +407,9 @@ function App() {
 createRoot(document.getElementById('root')!).render(<App />)
 ```
 
-首次执行`render`会创建`fiberRootNode`(源码叫`fiberRoot`)和`rootFiber`。其中`fiberRootNode`是整个应用的根节点，`rootFiber`是`<App />`所在组件树的**根节点**。
+ ---
+ 
+ 首次执行`render`会创建`fiberRootNode`(源码叫`fiberRoot`)和`rootFiber`。其中`fiberRootNode`是整个应用的根节点，`rootFiber`是`<App />`所在组件树的**根节点**。
 
 为什么要区分`fiberRoot`和`rootFiber`呢？
 
@@ -417,3 +419,6 @@ createRoot(document.getElementById('root')!).render(<App />)
 
 但是由于是**首屏渲染**，页面中还没有挂载任何的 DOM， 所以`fiberRoot.current`指向的`rootFiber`没有任何的**子`fiber`**.=> 即 `curent Fiber Tree `为空
 ![[Pasted image 20240828170501.png]]
+
+---
+接下来
