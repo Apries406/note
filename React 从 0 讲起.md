@@ -427,4 +427,4 @@ createRoot(document.getElementById('root')!).render(<App />)
 ![[Pasted image 20240828210058.png]]
 
 --- 
-	
+当`workInProgress Fiber Tree`构建完成后，在`commmit`阶段渲染到页面中成为`current Fiber Tree
