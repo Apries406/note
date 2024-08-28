@@ -427,7 +427,9 @@ createRoot(document.getElementById('root')!).render(<App />)
 
 --- 
 当`workInProgress Fiber Tree`构建完成后，在`commmit`阶段渲染到页面中成为`current Fiber Tree` DOM 随之更新。
-![[Pasted image 20240828210754.png]]
+![[Pasted image 20240828212610.png]]
 
 
 ### Update 阶段
+
+现在我们点击`<span />`，触发状态改变, 这会开启一次新的`render`阶段并构建一颗新的`workInProgress Fiber Tree`
