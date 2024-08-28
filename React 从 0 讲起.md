@@ -410,3 +410,7 @@ createRoot(document.getElementById('root')!).render(<App />)
 首次执行`render`会创建`fiberRootNode`(源码叫`fiberRoot`)和`rootFiber`。其中`fiberRootNode`是整个应用的根节点，`rootFiber`是`<App />`所在组件树的**根节点**。
 
 为什么要区分`fiberRoot`和`rootFiber`呢？
+
+因为我们在应用中可以多次调用`render`渲染不同的组件树，他们会拥有不同的`rootFiber`。但是整个应用的根节点只有一个，就是`fiberRoot`
+
+`fiberRoot`的`current`会指向当前页面上已渲染的`fiber Tree`，即`current Fiber Tree`
