@@ -375,4 +375,13 @@ function App() {
 
 通过使用“双缓存”技术，在 React 中最多会同时存在**两颗 `Fiber` 树**。
 - 当前屏幕显示的 `Fiber 树` 称为 **`Current Fiber` 树**
-- 正在内存中构建的 `Fiber 树` 称为 `workInProgress` 树**
+- 正在内存中构建的 `Fiber 树` 称为 **`workInProgress` 树**
+
+`current Fiber Tree` 中的 `Fiber Node`被称为 `current fiber`
+`workInProgress Fiber Tree`中的 `Fiber Node` 被称为 `workInProgress fiber`
+此二者通过 `alternate` 属性链接 =>
+```typescript
+currentFiber.alternate === workInProgressFiber
+workInProgressFiber.alternate === currentFiber
+```
+
