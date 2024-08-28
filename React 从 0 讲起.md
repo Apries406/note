@@ -396,15 +396,14 @@ React 应用的**根节点**通过使**current**指针在不同`Fiber Tree`的 `
 以以下组件为例：
 ```tsx
 function App() {
+  const [count, setCount]  = useState(0)
   return (
-    <div >
-      <h1>child 1</h1>
-      <h2>child 2</h2>
-    </div>
+    <span onClick={() => setCount(count + 1)}>{count}</span>
   )
 }
 
 createRoot(document.getElementById('root')!).render(<App />)
+
 ```
 
  ---
@@ -427,4 +426,8 @@ createRoot(document.getElementById('root')!).render(<App />)
 ![[Pasted image 20240828210058.png]]
 
 --- 
-当`workInProgress Fiber Tree`构建完成后，在`commmit`阶段渲染到页面中成为`current Fiber Tree
+当`workInProgress Fiber Tree`构建完成后，在`commmit`阶段渲染到页面中成为`current Fiber Tree` DOM 随之更新。
+![[Pasted image 20240828210754.png]]
+
+
+### Update 阶段
