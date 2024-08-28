@@ -424,3 +424,7 @@ createRoot(document.getElementById('root')!).render(<App />)
 接下来进入`render`阶段，根据组件返回的`jsx`在内存中依次创建`Fiber Node`并链接在一起形成`Fiber Tree`，被称为`workInProgress Fiber Tree`。
 
 在构建`workInProgress Fiber Tree`时，会尝试复用`current Fiber Tree`中已有的`Fiber Node`内的属性。不过，在**首屏渲染**阶段时，只有`rootFiber`存在对应的`current fiber`=>`fiberRoot.current.alternate`才是`workInProgress Fiber Tree`
+![[Pasted image 20240828210058.png]]
+
+--- 
+	
