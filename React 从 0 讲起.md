@@ -385,4 +385,5 @@ currentFiber.alternate === workInProgressFiber
 workInProgressFiber.alternate === currentFiber
 ```
 
-React 应用的**根节点**通过shi
+React 应用的**根节点**通过使**current**指针在不同`Fiber Tree`的 `rootFiber` 间切换来完成`current Fiber Tree` 指向的切换。
+
