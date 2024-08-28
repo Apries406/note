@@ -433,3 +433,4 @@ createRoot(document.getElementById('root')!).render(<App />)
 ### Update 阶段
 
 现在我们点击`<span />`，触发状态改变, 这会开启一次新的`render`阶段并构建一颗新的`workInProgress Fiber Tree`
+![[Pasted image 20240828212950.png]]/
