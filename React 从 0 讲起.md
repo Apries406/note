@@ -387,3 +387,6 @@ workInProgressFiber.alternate === currentFiber
 
 React 应用的**根节点**通过使**current**指针在不同`Fiber Tree`的 `rootFiber` 间切换来完成`current Fiber Tree` 指向的切换。
 
+即当`workInProgress Fiber Tree`构建完成交给`Renderer`渲染后，应用根节点的`current`指针指向`workInProgress Fiber Tree`，此时`workInProgress Fiber Tree`就变成了`current Fiber Tree`
+
+每次状态更新都会产生薪
