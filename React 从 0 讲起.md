@@ -391,3 +391,4 @@ React 应用的**根节点**通过使**current**指针在不同`Fiber Tree`的 `
 
 每次状态更新都会产生新的`workInProgress Fiber Tree`，通过`current`与`workInProgress`的替换，完成`DOM`更新
 
+### Mount 阶段
