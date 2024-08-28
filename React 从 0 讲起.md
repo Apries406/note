@@ -385,3 +385,4 @@ currentFiber.alternate === workInProgressFiber
 workInProgressFiber.alternate === currentFiber
 ```
 
+React 应用的**根节点**通过shi
