@@ -513,7 +513,13 @@ function beginWork(
 
 在React双缓存机制的讲解中，我们知道，除了 rootFiber 以外，组件Mount时，由于是首次渲染，是不存在当前组件对应的 Fiber Node 在上次更新的 Fiber Node 的，所以
 - 在 Mount 时 `current === null`
-- 在 Upa
+- 在 Update 时， `current !== null`
+
+因此，我们可以通过查看 `current` 是否为 `null`，来区分当前是 Mount 阶段还是 Update 阶段
+
+同样的，在 beginWork 中，工作也可以分为如下两类：
+- `Mount`: 除了`fiberRoot`不同以外，`current === null`。会根据`fiber.tag`的不同，创建不同的子fiber。
+- `Update`: 如果`current`存在，通过diff算法决定是否复用currentji'eian
 
 # React Diff 算法
 
