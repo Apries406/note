@@ -658,3 +658,5 @@ export function reconcileChildren(
 ## 单节点
 ![[Pasted image 20240829200625.png]]
 ## 多节点
+
+多节点Diff的思路:
