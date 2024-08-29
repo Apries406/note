@@ -559,6 +559,7 @@ function beginWork(
 
 ##### Update
 
+
 ##### Mount
 
 当不满足 Diff 优化时，我们就进入第二部分，新建子 Fiber ，进入 Fiber 的 Mount 阶段。
