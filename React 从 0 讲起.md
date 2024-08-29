@@ -617,7 +617,41 @@ switch (workInProgress.tag) {
 
 ##### reconcileChildren
 
-此函数是
+此函数是 Reconciler 模块的核心部分。
+- 对于 Mount 组件，他会创建新的 子 Fiber 节点
+- 对于 Update 组件，他会讲当前组件与该组件在上一次更新的 Fiber 节点做比较，产生新的 Fiber 节点
+```typescript
+export function reconcileChildren(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  nextChildren: any,
+  renderLanes: Lanes
+) {
+  if (current === null) {
+    // 对于mount的组件
+    workInProgress.child = mountChildFibers(
+      workInProgress,
+      null,
+      nextChildren,
+      renderLanes
+    );
+  } else {
+    // 对于update的组件
+    workInProgress.child = reconcileChildFibers(
+      workInProgress,
+      current.child,
+      nextChildren,
+      renderLanes
+    );
+  }
+} 
+```
+
+>[!info]
+>`mountChildFibers`与`reconcileChildFibers`这两个方法的逻辑基本一致。唯一的区别是：
+>
+>`reconcileChildFibers`会为生成的`Fiber节点`带上`effectTag`属性，而`mountChildFibers`不会。
+
 
 # React Diff 算法
 
