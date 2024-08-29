@@ -495,6 +495,25 @@ function workLoopConcurrent() {
 
 ### beginWork
 
+从源码开始剖析：
+```typescript
+function beginWork(
+  current: Fiber | null,
+  workInProgress: Fiber,
+  renderLanes: Lanes,
+): Fiber | null {
+	// 省略实现
+}
+```
+
+**传参分析:**
+- `current`: 当前组件对应的 Fiber Node 在上一次更新时的 Fiber Node，即`workInProgress.alternate`
+- `workInProgress`: 当前组件对应的 Fiber Node
+- `renderLanes`: 调度优先级相关
+
+在React双缓存机制的讲解中，我们知道，除了 rootFiber 以外，组件Mount时，由于是首次渲染，是不存在当前组件对应的 Fiber Node 在上次更新的 Fiber Node 的，所以
+- 在 Mount 时 `current === null`
+- 在 Upa
 
 # React Diff 算法
 
