@@ -519,7 +519,7 @@ function beginWork(
 
 同样的，在 beginWork 中，工作也可以分为如下两类：
 - `Mount`: 除了`fiberRoot`不同以外，`current === null`。会根据`fiber.tag`的不同，创建不同的子fiber。
-- `Update`: 如果`current`存在，通过diff算法决定是否复用currentji'eian
+- `Update`: 如果`current`存在，通过diff算法决定是否复用current节点。这样可以克隆`current.child`作为`workInProgress.child`，从而省略了新建的步骤。
 
 # React Diff 算法
 
