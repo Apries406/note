@@ -452,6 +452,22 @@ createRoot(document.getElementById('root')!).render(<App />)
 `Render`阶段开始于`performSyncWorkOnRoot`或者是`performConcurrentWorkOnRoot`方法的调用。
 这取决于本次的更新是**同步**的还是**异步**的
 
+```javascript
+// performSyncWorkOnRoot会调用该方法
+function workLoopSync() {
+  while (workInProgress !== null) {
+    performUnitOfWork(workInProgress);
+  }
+}
+
+// performConcurrentWorkOnRoot会调用该方法
+function workLoopConcurrent() {
+  while (workInProgress !== null && !shouldYield()) {
+    performUnitOfWork(workInProgress);
+  }
+}
+```
+
 # React Diff 算法
 
 
