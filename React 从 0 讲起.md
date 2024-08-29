@@ -468,7 +468,8 @@ function workLoopConcurrent() {
 }
 ```
 
-从函数中可以看出，他们**唯一**的区别是 是否调用`shouldYield()`。如果浏览器当前帧没有剩余时间，那么`shouldYield()`就会终止循环，直到浏览器有空闲时间之后再继续遍历
+从函数中可以看出，他们**唯一**的区别是 是否调用`shouldYield()`。如果浏览器当前帧没有剩余时间，那么`shouldYield()`就会终止循环，直到浏览器有空闲时间之后再继续遍历。
+
 # React Diff 算法
 
 
