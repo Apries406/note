@@ -660,3 +660,21 @@ export function reconcileChildren(
 ## 多节点
 
 多节点Diff的思路:
+
+---
+**简洁版:**
+
+1. 判断当前节点的更新属于哪种情况
+2. 如果是`新增`，执行新增逻辑
+3. 如果是`删除`，执行删除逻辑
+4. 如果是`更新`，执行更新逻辑
+
+前提是**不同操作的优先级是相同的**
+
+`React团队`发现，在日常开发中，相较于`新增`和`删除`，`更新`组件发生的频率更高。所以`Diff`会优先判断当前节点是否属于`更新`。
+>[!info]
+> **是否能用双指针优化呢？**
+> 虽然本次更新的JSX对象 newChildren为数组形式，但是和newChildren中每个组件进行比较的是>current fiber，同级的Fiber节点是由sibling指针链接形成的单链表，即不支持双指针遍历。
+  即 newChildren[0]与fiber比较，newChildren[1]与fiber.sibling比较。
+
+所以无法使用双指针优化。
