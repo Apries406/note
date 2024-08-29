@@ -484,6 +484,12 @@ function workLoopConcurrent() {
 
 ### "归"
 
+在"归"阶段，会调用`completeWork()`处理`fiber Node`
+
+当某个`fiber Node`执行完 `completeWork()`，如果它存在兄弟`fiber Node`=> `fiber.sibling !== null`，则进入兄弟节点的 **"递"** 阶段
+
+如果不存在兄弟节点，则进入**父级`fiber`** 的** 
+
 # React Diff 算法
 
 
