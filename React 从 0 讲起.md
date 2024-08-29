@@ -655,4 +655,6 @@ export function reconcileChildren(
 #### effectTag
 
 # React Diff 算法
+## 单节点
 ![[Pasted image 20240829200625.png]]
+## 多节点
