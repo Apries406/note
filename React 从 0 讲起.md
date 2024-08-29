@@ -447,4 +447,6 @@ createRoot(document.getElementById('root')!).render(<App />)
 
 ## Render 阶段
 
+# React Diff 算法
+
 
