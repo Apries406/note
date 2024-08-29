@@ -493,6 +493,8 @@ function workLoopConcurrent() {
 --- 
 "递"与"归"交错执行直到"归"阶段抵达`rootFiber`，render 结束
 
+### beginWork
+
 
 # React Diff 算法
 
