@@ -614,6 +614,11 @@ switch (workInProgress.tag) {
   // ...省略其他类型
 }
 ```
+
+##### reconcileChildren
+
+此函数是
+
 # React Diff 算法
 
 
