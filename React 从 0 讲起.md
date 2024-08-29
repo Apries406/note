@@ -447,6 +447,11 @@ createRoot(document.getElementById('root')!).render(<App />)
 
 ## Render 阶段
 
+我们知道了`Fiber Node`能通过属性链接为`Fiber Tree`，那么他是构建的呢？
+
+`Render`阶段开始于`performSyncWorkOnRoot`或者是`performConcurrentWorkOnRoot`方法的调用。
+这取决于本次的更新是**同步**的还是**异步**的
+
 # React Diff 算法
 
 
