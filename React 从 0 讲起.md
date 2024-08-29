@@ -475,8 +475,15 @@ function workLoopConcurrent() {
 我们知道，新的`fiber Reconciler`是从React 15的`stack Reconciler`重构而来，通过遍历的方式实现了可中断的递归，因此`performUnitOfWork`的工作方式依然可以分为两部分: **"递"** 和 **"归"**
 
 ### "递"
-首先从`rootFiber`开始向下**深度优先遍历**
+首先从`rootFiber`开始向下**深度优先遍历**。为遍历到的**每个`fiber Node`** 调用 `beginWork()`
+该方法会根据**传入的`fiber Node`** 创建 **子`fiber Node`**，并链接两个`fiber Node`
+
+当遍历到**叶子节点**时，就会进入**"归"**阶段**
+
+--- 
+
 ### "归"
+
 # React Diff 算法
 
 
