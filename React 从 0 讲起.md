@@ -655,6 +655,4 @@ export function reconcileChildren(
 #### effectTag
 
 # React Diff 算法
-1. 首先判断有无对应的dom节点
-2. 
-
+![[Pasted image 20240829200625.png]]
