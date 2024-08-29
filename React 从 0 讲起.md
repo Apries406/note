@@ -490,6 +490,10 @@ function workLoopConcurrent() {
 
 如果不存在兄弟节点，则进入**父级`fiber`** 的 **“归”阶段** 
 
+--- 
+"递"与"归"交错执行直到"归"阶段抵达`rootFiber`，render 结束
+
+
 # React Diff 算法
 
 
