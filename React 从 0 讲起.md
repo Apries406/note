@@ -558,7 +558,39 @@ function beginWork(
 ```
 
 ##### Update
+```typescript
+if (current !== null) {
+  const oldProps = current.memoizedProps;
+  const newProps = workInProgress.pendingProps;
 
+  if (
+    oldProps !== newProps ||
+    hasLegacyContextChanged() ||
+    (__DEV__ ? workInProgress.type !== current.type : false)
+  ) {
+    didReceiveUpdate = true;
+  } else if (!includesSomeLane(renderLanes, updateLanes)) {
+    didReceiveUpdate = false;
+    switch (
+      workInProgress.tag
+      // 省略处理
+    ) {
+    }
+    return bailoutOnAlreadyFinishedWork(current, workInProgress, renderLanes);
+  } else {
+    didReceiveUpdate = false;
+  }
+} else {
+  didReceiveUpdate = false;
+}
+```
+
+从源码的处理中我们可以看到:
+
+当满足`didReceiveUpdate === false`时，我们可以复用上一次更新的子 Fiber 
+- `oldProps === newProps && workInProgress.type === current.type`，即`props`与`fiber.type`不变
+- `!includesSomeLane(renderLanes, updateLanes)`，即当前`Fiber节点`优先级不够
+--- 
 
 ##### Mount
 
