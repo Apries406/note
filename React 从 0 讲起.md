@@ -652,6 +652,7 @@ export function reconcileChildren(
 >
 >`reconcileChildFibers`会为生成的`Fiber节点`带上`effectTag`属性，而`mountChildFibers`不会。
 
+#### effectTag
 
 # React Diff 算法
 
