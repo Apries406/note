@@ -472,7 +472,11 @@ function workLoopConcurrent() {
 
 `performUnitOfWork`方法会创建下一个`fiber Node`并赋值给`workInprogress`，并且将`workInprogress`与已创建的`fiber Node`链接起来构成`fiber Tree`
 
-我们知道，新的`fiber Reconciler`是从React 15的`stack Reconciler`重构而来，通过遍历的方式实现了可中断的递归，因此`performUnitOfWork`的工作方式依然可以分为两部分: **"递"**和"归"
+我们知道，新的`fiber Reconciler`是从React 15的`stack Reconciler`重构而来，通过遍历的方式实现了可中断的递归，因此`performUnitOfWork`的工作方式依然可以分为两部分: **"递"** 和 **"归"**
+
+### "递"
+首先从`rootFiber`开始向下**深度优先遍历**
+### "归"
 # React Diff 算法
 
 
