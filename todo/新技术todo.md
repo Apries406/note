@@ -8,7 +8,7 @@
 - [ ] xyflow(react-flow vue-flow)
 - [ ] css mix-blend-mode
 - [ ] websocket 心跳机制详解
-- [ ] neo -> rust
+- [ ] neon -> rust
 - [x] pnpm workspace
 - [ ] react all hooks
 - [ ] no props render
