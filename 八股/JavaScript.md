@@ -190,7 +190,7 @@ MyObject.prototype.getMessage = function() {
 
 ![[Pasted image 20240312223318.png]]
 
-### 基本使用
+ ### 基本使用
 
 ```javascript
 const p1 = new Promise((resolve, reject) => {
