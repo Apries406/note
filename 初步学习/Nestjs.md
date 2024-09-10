@@ -19,3 +19,4 @@
 Service 作为**providers**，controller 作为**controllers**。
 为什么 service 是 providers 呢？
 **IOC（inverse of control)** 控制反转
+**entities** 是封装对应数据库表的实体的。
